@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Financial Tracker</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
+
 <body>
   <main class="auth-wrapper">
     <article class="auth-card">
@@ -15,37 +21,37 @@
       <i class="fas fa-coins auth-icon"></i>
       <h2>Welcome Back</h2>
       <p class="auth-subtitle">Login to your Financial Tracker account</p>
-      
+
       <form id="loginForm">
         <article class="form-group">
           <label><i class="fas fa-envelope"></i> Email</label>
           <input type="email" id="loginEmail" placeholder="Enter your email" required>
         </article>
-        
+
         <article class="form-group">
           <label><i class="fas fa-lock"></i> Password</label>
           <input type="password" id="loginPassword" placeholder="Enter your password" required>
         </article>
-        
+
         <article class="form-options">
           <label class="checkbox-label">
             <input type="checkbox" id="rememberMe"> Remember Me
           </label>
           <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
         </article>
-        
+
         <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Login</button>
       </form>
-      
+
       <article class="divider">or</article>
-      
+
       <div id="googleSignInButton"></div>
-      
+
       <p class="auth-footer">Don't have an account? <a href="create-account.html">Create Account</a></p>
     </article>
   </main>
-  
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <script src="../js/auth.js"></script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-// Google API Configuration - Replace with your Google Client ID
+// Google API Configuration
 const GOOGLE_CLIENT_ID = '885316256157-9bosddc61mhieokop7u9v1nago38vr0c.apps.googleusercontent.com';
 
 // User database (localStorage)
@@ -109,7 +109,9 @@ function handleLogin(event) {
 }
 
 function handleGoogleCredentialResponse(response) {
+  console.log('Google response received:', response);
   const decoded = parseJwt(response.credential);
+  console.log('Decoded user:', decoded);
   
   const googleUser = {
     id: decoded.sub,
@@ -143,25 +145,57 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-function initializeGoogleSignIn() {
-  if (typeof google !== 'undefined' && google.accounts) {
+// SIMPLIFIED: Render Google button directly
+function renderGoogleButton() {
+  const googleButton = document.getElementById('googleSignInButton');
+  if (!googleButton) {
+    console.log('Google button container not found');
+    return;
+  }
+  
+  console.log('Rendering Google button...');
+  
+  // Clear the container
+  googleButton.innerHTML = '';
+  
+  // Check if google is available
+  if (typeof google === 'undefined' || !google.accounts) {
+    console.log('Google accounts not available yet, retrying...');
+    googleButton.innerHTML = '<div style="text-align: center; padding: 12px; color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading Google Sign-In...</div>';
+    setTimeout(renderGoogleButton, 500);
+    return;
+  }
+  
+  try {
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
-      callback: handleGoogleCredentialResponse
+      callback: handleGoogleCredentialResponse,
+      auto_select: false,
+      cancel_on_tap_outside: true
     });
     
-    const googleButton = document.getElementById('googleSignInButton');
-    if (googleButton) {
-      google.accounts.id.renderButton(
-        googleButton,
-        { theme: 'outline', size: 'large', width: '100%' }
-      );
-    }
+    google.accounts.id.renderButton(
+      googleButton,
+      { 
+        theme: 'outline', 
+        size: 'large', 
+        width: '100%',
+        text: 'signin_with',
+        shape: 'rectangular',
+        logo_alignment: 'left'
+      }
+    );
+    console.log('Google button rendered successfully');
+  } catch (error) {
+    console.error('Error rendering Google button:', error);
+    googleButton.innerHTML = '<button class="btn-google" onclick="alert(\'Please refresh the page to sign in with Google\')"><i class="fab fa-google"></i> Sign in with Google</button>';
   }
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, initializing...');
+  
   const signupForm = document.getElementById('signupForm');
   if (signupForm) {
     signupForm.addEventListener('submit', handleSignup);
@@ -180,5 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  initializeGoogleSignIn();
+  // Start rendering the Google button
+  renderGoogleButton();
 });
