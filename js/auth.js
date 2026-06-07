@@ -179,6 +179,7 @@ function renderGoogleButton() {
       {
         theme: 'outline',
         size: 'large',
+        width: 400,  
         text: 'signin_with',
         shape: 'rectangular',
         logo_alignment: 'left'
