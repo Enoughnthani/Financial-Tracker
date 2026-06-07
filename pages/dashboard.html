@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Financial Tracker</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <main class="dashboard-wrapper">
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+      <article class="logo">
+        <i class="fas fa-coins"></i>
+        <h1>Financial Tracker</h1>
+      </article>
+      
+      <article class="nav-links">
+        <button class="nav-btn active" data-page="overview">
+          <i class="fas fa-tachometer-alt"></i> Overview
+        </button>
+        <button class="nav-btn" data-page="transactions">
+          <i class="fas fa-exchange-alt"></i> Transactions
+        </button>
+        <button class="nav-btn" data-page="budget">
+          <i class="fas fa-chart-pie"></i> Budget
+        </button>
+        <button class="nav-btn" data-page="profile">
+          <i class="fas fa-user"></i> Profile
+        </button>
+      </article>
+      
+      <article class="user-menu">
+        <img id="userAvatar" class="user-avatar" src="https://via.placeholder.com/40" alt="Avatar">
+        <span id="userNameDisplay">Guest</span>
+        <button id="logoutBtn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </article>
+    </nav>
+    
+    <!-- Overview Page - ALL HARDCODED with ZAR Rands -->
+    <section id="overviewPage" class="page-content active-page">
+      <section class="stats-grid">
+        <article class="stat-card">
+          <h4>Total Income</h4>
+          <p class="stat-value income">R 0.00</p>
+        </article>
+        <article class="stat-card">
+          <h4>Total Expenses</h4>
+          <p class="stat-value expense">R 0.00</p>
+        </article>
+        <article class="stat-card">
+          <h4>Balance</h4>
+          <p class="stat-value balance">R 0.00</p>
+        </article>
+      </section>
+      
+      <section class="budget-card">
+        <h3><i class="fas fa-chart-line"></i> Monthly Budget Tracker</h3>
+        <p><strong>Budget:</strong> R 0.00</p>
+        <p><strong>Spent this month:</strong> R 0.00</p>
+        <p><strong>Remaining:</strong> R 0.00</p>
+        <article class="progress-bar">
+          <article class="progress-fill" style="width: 0%;">0%</article>
+        </article>
+      </section>
+      
+      <section class="transaction-list">
+        <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+        <p style="text-align: center; padding: 40px; color: #666;">No transactions yet. Add your first transaction!</p>
+      </section>
+    </section>
+
+    <!-- Transactions Page - ALL HARDCODED with ZAR Rands -->
+    <section id="transactionsPage" class="page-content">
+      <section class="transaction-list">
+        <h3><i class="fas fa-list"></i> All Transactions</h3>
+        <article class="filter-bar">
+          <select id="filterType">
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <input type="text" id="searchCategory" placeholder="Search by category">
+          <button id="applyFilterBtn" class="btn-secondary">Apply Filter</button>
+        </article>
+        <article id="transactionsList">
+          <p style="text-align: center; padding: 40px; color: #666;">No transactions yet. Add your first transaction!</p>
+        </article>
+      </section>
+    </section>
+
+    <!-- Budget Page - ALL HARDCODED with ZAR Rands -->
+    <section id="budgetPage" class="page-content">
+      <section class="budget-card">
+        <h3><i class="fas fa-piggy-bank"></i> Budget Overview</h3>
+        <p><strong>Monthly Budget:</strong> R 0.00</p>
+        <p><strong>Spent:</strong> R 0.00</p>
+        <p><strong>Remaining:</strong> R 0.00</p>
+        <article class="progress-bar">
+          <article class="progress-fill" style="width: 0%;">0%</article>
+        </article>
+        <p style="margin-top: 20px; color: #666; font-size: 14px;">
+          <i class="fas fa-info-circle"></i> Set a budget to start tracking your spending
+        </p>
+      </section>
+    </section>
+
+    <!-- Profile Page - ONLY name and email from JS -->
+    <section id="profilePage" class="page-content">
+      <section class="form-card">
+        <h3><i class="fas fa-user-circle"></i> Your Profile</h3>
+        <article class="profile-info">
+          <img id="profileAvatar" class="profile-avatar" src="https://via.placeholder.com/100" alt="Profile">
+          <article class="profile-details">
+            <h3 id="profileName">Loading Google User...</h3>
+            <p><i class="fas fa-envelope"></i> <span id="profileEmail">Loading email from Google...</span></p>
+            <p><i class="fas fa-id-badge"></i> Google Account</p>
+            <p><i class="fas fa-calendar"></i> Member since 2026</p>
+          </article>
+        </article>
+        
+        <article style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
+          <h4><i class="fas fa-chart-line"></i> Account Statistics</h4>
+          <p><strong>Total Income:</strong> R 0.00</p>
+          <p><strong>Total Expenses:</strong> R 0.00</p>
+          <p><strong>Monthly Budget:</strong> R 0.00</p>
+          <p><strong>Total Transactions:</strong> 0</p>
+        </article>
+      </section>
+    </section>
+  </main>
+  
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
