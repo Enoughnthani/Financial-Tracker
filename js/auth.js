@@ -1,7 +1,6 @@
-// Google API Configuration
+
 const GOOGLE_CLIENT_ID = '885316256157-9bosddc61mhieokop7u9v1nago38vr0c.apps.googleusercontent.com';
 
-// User database (localStorage)
 let users = JSON.parse(localStorage.getItem('finwise_users')) || [];
 
 function showMessage(message, isError = false) {
@@ -122,7 +121,6 @@ function handleGoogleCredentialResponse(response) {
     family_name: decoded.family_name
   };
 
-  // Check if user exists
   const existingUser = users.find(u => u.email === googleUser.email);
   if (!existingUser) {
     users.push(googleUser);
@@ -145,7 +143,6 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-// SIMPLIFIED: Render Google button directly
 function renderGoogleButton() {
   const googleButton = document.getElementById('googleSignInButton');
   if (!googleButton) {
@@ -155,10 +152,8 @@ function renderGoogleButton() {
 
   console.log('Rendering Google button...');
 
-  // Clear the container
   googleButton.innerHTML = '';
 
-  // Check if google is available
   if (typeof google === 'undefined' || !google.accounts) {
     console.log('Google accounts not available yet, retrying...');
     googleButton.innerHTML = '<div style="text-align: center; padding: 12px; color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading Google Sign-In...</div>';
@@ -214,6 +209,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Start rendering the Google button
   renderGoogleButton();
 });
