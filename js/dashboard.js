@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', handleLogout);
   }
-  
+    var data=0;
 
   const applyFilterBtn = document.getElementById('applyFilterBtn');
   if (applyFilterBtn) {
