@@ -1,6 +1,3 @@
-// This file ONLY handles displaying Google user name and email
-// ALL financial data is hardcoded in dashboard.html
-
 let currentUser = null;
 
 function showMessage(message, isError = false) {
@@ -13,13 +10,11 @@ function showMessage(message, isError = false) {
 }
 
 function updateUserInfo(user) {
-  // Update navigation bar
   document.getElementById('userNameDisplay').textContent = user.name;
   if (user.picture && user.picture !== 'https://via.placeholder.com/40') {
     document.getElementById('userAvatar').src = user.picture;
   }
   
-  // Update profile page
   document.getElementById('profileName').textContent = user.name;
   document.getElementById('profileEmail').textContent = user.email;
   if (user.picture) {
@@ -28,12 +23,10 @@ function updateUserInfo(user) {
 }
 
 function handleLogout() {
-  // Sign out from Google
   if (typeof google !== 'undefined' && google.accounts) {
     google.accounts.id.disableAutoSelect();
   }
   
-  // Clear local storage
   localStorage.removeItem('finwise_currentUser');
   
   showMessage('Logged out successfully!');
@@ -43,18 +36,15 @@ function handleLogout() {
 }
 
 function loadPage(pageId) {
-  // Hide all pages
   document.querySelectorAll('.page-content').forEach(page => {
     page.classList.remove('active-page');
   });
   
-  // Show selected page
   const selectedPage = document.getElementById(pageId + 'Page');
   if (selectedPage) {
     selectedPage.classList.add('active-page');
   }
-  
-  // Update active nav button
+
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.remove('active');
     if (btn.dataset.page === pageId) {
@@ -84,9 +74,7 @@ function filterTransactions() {
   });
 }
 
-// Initialize dashboard
 document.addEventListener('DOMContentLoaded', () => {
-  // Get current user from localStorage
   const storedUser = localStorage.getItem('finwise_currentUser');
   
   if (!storedUser) {
@@ -97,20 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
   currentUser = JSON.parse(storedUser);
   updateUserInfo(currentUser);
   
-  // Navigation buttons
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       loadPage(btn.dataset.page);
     });
   });
   
-  // Logout button
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', handleLogout);
   }
   
-  // Filter functionality
+
   const applyFilterBtn = document.getElementById('applyFilterBtn');
   if (applyFilterBtn) {
     applyFilterBtn.addEventListener('click', filterTransactions);
@@ -126,6 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
     filterType.addEventListener('change', filterTransactions);
   }
   
-  // Load default page
   loadPage('overview');
 });
