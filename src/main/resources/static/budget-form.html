@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:if="${budget != null and budget.id != null}">Edit Budget</title>
+    <title th:unless="${budget != null and budget.id != null}">Create Budget</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        
+        <header th:replace="fragments/navbar :: navbar"></header>
+        
+        <nav th:replace="fragments/sidebar :: sidebar"></nav>
+        
+        <main class="main-content">
+            
+            <section class="page-content">
+                
+                <header class="page-header">
+                    <h1 th:if="${budget != null and budget.id != null}">Edit Budget</h1>
+                    <h1 th:unless="${budget != null and budget.id != null}">Create New Budget</h1>
+                    <p>Plan your spending for different categories.</p>
+                </header>
+                
+                <article class="card" style="max-width:700px;">
+                    <form class="card-body" 
+                          th:action="@{/budgets/save}" 
+                          th:object="${budget}" 
+                          method="post">
+                        
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="form-group">
+                            <label for="name">Budget Name</label>
+                            <input type="text" id="name" 
+                                   th:field="*{name}" 
+                                   placeholder="e.g., Monthly Groceries" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="amount">Budget Amount</label>
+                            <input type="number" id="amount" 
+                                   th:field="*{amount}" 
+                                   step="0.01" 
+                                   placeholder="500" 
+                                   required />
+                            <div class="help-text">How much do you want to allocate?</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="categoryId">Category</label>
+                            <select id="categoryId" th:field="*{category.id}">
+                                <option value="">Select category...</option>
+                                <option th:each="category : ${categories}" 
+                                        th:value="${category.id}" 
+                                        th:text="${category.name}">Food</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <span th:if="${budget != null and budget.id != null}">💾 Update Budget</span>
+                                <span th:unless="${budget != null and budget.id != null}">📋 Create Budget</span>
+                            </button>
+                            <a href="/budgets" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                    </form>
+                </article>
+                
+            </section>
+            
+            <footer th:replace="fragments/footer :: footer"></footer>
+            
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    
+</body>
+
+</html>

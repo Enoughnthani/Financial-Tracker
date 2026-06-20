@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:if="${goal != null and goal.id != null}">Edit Goal</title>
+    <title th:unless="${goal != null and goal.id != null}">Create Goal</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        
+        <header th:replace="fragments/navbar :: navbar"></header>
+        
+        <nav th:replace="fragments/sidebar :: sidebar"></nav>
+        
+        <main class="main-content">
+            
+            <section class="page-content">
+                
+                <header class="page-header">
+                    <h1 th:if="${goal != null and goal.id != null}">Edit Goal</h1>
+                    <h1 th:unless="${goal != null and goal.id != null}">Create New Goal</h1>
+                    <p>Set a financial target and track your progress.</p>
+                </header>
+                
+                <article class="card" style="max-width:700px;">
+                    <form class="card-body" 
+                          th:action="@{/goals/save}" 
+                          th:object="${goal}" 
+                          method="post">
+                        
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="form-group">
+                            <label for="goalName">Goal Name</label>
+                            <input type="text" id="goalName" 
+                                   th:field="*{goalName}" 
+                                   placeholder="e.g., Emergency Fund, Vacation, New Car" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="targetAmount">Target Amount</label>
+                            <input type="number" id="targetAmount" 
+                                   th:field="*{targetAmount}" 
+                                   step="0.01" 
+                                   placeholder="10000" 
+                                   required />
+                            <div class="help-text">How much do you want to save?</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currentAmount">Current Amount</label>
+                            <input type="number" id="currentAmount" 
+                                   th:field="*{currentAmount}" 
+                                   step="0.01" 
+                                   placeholder="0" />
+                            <div class="help-text">How much have you saved so far?</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="targetDate">Target Date</label>
+                            <input type="date" id="targetDate" 
+                                   th:field="*{targetDate}" />
+                            <div class="help-text">When do you want to achieve this goal?</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" th:field="*{status}">
+                                <option value="ACTIVE">Active</option>
+                                <option value="COMPLETED">Completed</option>
+                                <option value="CANCELLED">Cancelled</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <span th:if="${goal != null and goal.id != null}">💾 Update Goal</span>
+                                <span th:unless="${goal != null and goal.id != null}">🎯 Create Goal</span>
+                            </button>
+                            <a href="/goals" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                    </form>
+                </article>
+                
+            </section>
+            
+            <footer th:replace="fragments/footer :: footer"></footer>
+            
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    
+</body>
+
+</html>

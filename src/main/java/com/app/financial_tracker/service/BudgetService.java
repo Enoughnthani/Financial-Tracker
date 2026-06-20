@@ -1,0 +1,46 @@
+package com.app.financial_tracker.service;
+
+import java.util.List;
+
+import org.jspecify.annotations.Nullable;
+import org.springframework.stereotype.Service;
+
+import com.app.financial_tracker.entity.Budget;
+import com.app.financial_tracker.repository.BudgetRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class BudgetService {
+
+    private final BudgetRepository budgetRepository;
+
+
+    public Budget save(Budget budget) {
+        return budgetRepository.save(budget);
+    }
+
+
+    public List<Budget> findAll() {
+        return budgetRepository.findAll();
+    }
+
+
+    public Budget findById(Long id) {
+        return budgetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
+    }
+
+
+    public void delete(Long id) {
+        budgetRepository.deleteById(id);
+    }
+
+
+    public @Nullable Object findAllPeriods() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAllPeriods'");
+    }
+
+}

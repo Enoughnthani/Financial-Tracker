@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Financial Tracker</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        
+        <header th:replace="fragments/navbar :: navbar"></header>
+        
+        <nav th:replace="fragments/sidebar :: sidebar"></nav>
+        
+        <main class="main-content">
+            
+            <section class="page-content">
+                
+                <header class="page-header flex-between">
+                    <div>
+                        <h1>Notifications</h1>
+                        <p>Stay updated on your financial activity.</p>
+                    </div>
+                    <a href="/notifications/mark-read" class="btn btn-secondary btn-sm">Mark All as Read</a>
+                </header>
+                
+                <section class="card">
+                    <div class="card-body" style="padding:0;">
+                        <article th:each="notification : ${notifications}" 
+                                 th:if="${notifications != null and !notifications.isEmpty()}"
+                                 style="padding:1rem 1.5rem;border-bottom:1px solid var(--gray-100);"
+                                 th:classappend="${!notification.isRead} ? 'bg-light' : ''">
+                            
+                            <div class="flex-between">
+                                <div>
+                                    <h4 th:text="${notification.title}" style="margin:0;">Budget Alert</h4>
+                                    <p style="margin:0.25rem 0;color:var(--gray-600);" th:text="${notification.message}">
+                                        You've exceeded your budget for Food by 15%.
+                                    </p>
+                                    <small style="color:var(--gray-400);" 
+                                           th:text="${#temporals.format(notification.createdAt, 'MMM dd, yyyy HH:mm')}">
+                                        Jan 15, 2026 14:30
+                                    </small>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:0.75rem;">
+                                    <span th:if="${!notification.isRead}" 
+                                          class="status-badge active" 
+                                          style="font-size:0.625rem;">New</span>
+                                    <a th:href="@{/notifications/read/{id}(id=${notification.id})}" 
+                                       class="btn btn-secondary btn-sm">✔️</a>
+                                    <a th:href="@{/notifications/delete/{id}(id=${notification.id})}" 
+                                       onclick="return confirmDelete()" 
+                                       class="delete-btn">🗑️</a>
+                                </div>
+                            </div>
+                            
+                        </article>
+                        
+                        <div th:if="${notifications == null or notifications.isEmpty()}" 
+                             style="text-align:center;padding:3rem;color:var(--gray-500);">
+                            <p style="font-size:3rem;margin-bottom:0.5rem;">🔔</p>
+                            <h3>No Notifications</h3>
+                            <p>You're all caught up! 🎉</p>
+                        </div>
+                    </div>
+                </section>
+                
+            </section>
+            
+            <footer th:replace="fragments/footer :: footer"></footer>
+            
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    
+</body>
+
+</html>

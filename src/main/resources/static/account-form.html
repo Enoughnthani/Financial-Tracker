@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:if="${account != null and account.id != null}">Edit Account</title>
+    <title th:unless="${account != null and account.id != null}">Add Account</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        
+        <header th:replace="fragments/navbar :: navbar"></header>
+        
+        <nav th:replace="fragments/sidebar :: sidebar"></nav>
+        
+        <main class="main-content">
+            
+            <section class="page-content">
+                
+                <header class="page-header">
+                    <h1 th:if="${account != null and account.id != null}">Edit Account</h1>
+                    <h1 th:unless="${account != null and account.id != null}">Add New Account</h1>
+                    <p>Fill in the details below to <span th:if="${account != null and account.id != null}">update</span><span th:unless="${account != null and account.id != null}">create</span> your account.</p>
+                </header>
+                
+                <article class="card" style="max-width:700px;">
+                    <form class="card-body" 
+                          th:action="@{/accounts/save}" 
+                          th:object="${account}" 
+                          method="post">
+                        
+                        <!-- Hidden field for edit -->
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="form-group">
+                            <label for="accountName">Account Name</label>
+                            <input type="text" id="accountName" 
+                                   th:field="*{accountName}" 
+                                   placeholder="e.g., Savings, Credit Card, Cash" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="balance">Initial Balance</label>
+                            <input type="number" id="balance" 
+                                   th:field="*{balance}" 
+                                   step="0.01" 
+                                   placeholder="0.00" 
+                                   required />
+                            <div class="help-text">Enter the current balance of this account.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accountTypeId">Account Type</label>
+                            <select id="accountTypeId" th:field="*{accountType.id}">
+                                <option value="">Select a type...</option>
+                                <option th:each="type : ${accountTypes}" 
+                                        th:value="${type.id}" 
+                                        th:text="${type.name}">Savings</option>
+                            </select>
+                            <div class="help-text">Choose the type of account.</div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <span th:if="${account != null and account.id != null}">💾 Update Account</span>
+                                <span th:unless="${account != null and account.id != null}">➕ Create Account</span>
+                            </button>
+                            <a href="/accounts" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                    </form>
+                </article>
+                
+            </section>
+            
+            <footer th:replace="fragments/footer :: footer"></footer>
+            
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    
+</body>
+
+</html>
