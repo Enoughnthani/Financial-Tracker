@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgets - Financial Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/budgets.css">
+</head>
+
+<body>
+
+    <!-- ============================================ -->
+    <!-- SIDEBAR -->
+    <!-- ============================================ -->
+    <aside class="sidebar" id="sidebar">
+        <header class="sidebar-brand">
+            <i class="fas fa-chart-line"></i>
+            <span>Financial <br>Tracker</span>
+        </header>
+
+        <section class="sidebar-user">
+            <figure class="sidebar-avatar" id="avatar">G</figure>
+            <div>
+                <p class="sidebar-username" id="sidebarUserName">Guest</p>
+                <small class="sidebar-useremail" id="sidebarUserEmail">guest@example.com</small>
+            </div>
+        </section>
+
+        <nav class="sidebar-nav">
+            <a href="/dashboard.html">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/accounts.html">
+                <i class="fas fa-university"></i>
+                <span>Accounts</span>
+                <span class="badge" id="accountsBadge">0</span>
+            </a>
+            <a href="/transactions.html">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+                <span class="badge" id="transactionsBadge">0</span>
+            </a>
+            <a href="/budgets.html" class="active">
+                <i class="fas fa-wallet"></i>
+                <span>Budgets</span>
+            </a>
+            <a href="/goals.html">
+                <i class="fas fa-bullseye"></i>
+                <span>Goals</span>
+                <span class="badge" id="goalsBadge">0</span>
+            </a>
+            <a href="/reports.html">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </a>
+            <a href="/profile.html">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <footer class="sidebar-footer">
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sign Out</span>
+            </a>
+        </footer>
+    </aside>
+
+    <!-- ============================================ -->
+    <!-- OVERLAY FOR MOBILE -->
+    <!-- ============================================ -->
+    <section class="sidebar-overlay" id="sidebarOverlay"></section>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================================ -->
+    <main class="main">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <section class="topbar-left">
+                <button class="menu-btn" id="menuToggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="topbar-title">Budgets</h1>
+            </section>
+            <section class="topbar-right">
+                <span class="topbar-user" id="userName">Guest</span>
+                <a href="/logout" class="logout-btn" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </section>
+        </header>
+
+        <!-- Content -->
+        <section class="content">
+
+            <!-- Page Header -->
+            <header class="page-header">
+                <section>
+                    <h2 class="page-title"><i class="fas fa-wallet"></i> Budgets</h2>
+                    <p class="page-subtitle">Plan your spending and stay on track</p>
+                </section>
+                <button class="btn btn-primary" id="openAddModal">
+                    <i class="fas fa-plus"></i> Create Budget
+                </button>
+            </header>
+
+            <!-- Budgets Grid -->
+            <section class="budgets-grid" id="budgetsContainer">
+                <article class="loading-state">
+                    <span class="loading-spinner"></span>
+                    <p>Loading budgets...</p>
+                </article>
+            </section>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Financial Tracker</p>
+        </footer>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- MODAL -->
+    <!-- ============================================ -->
+    <section class="modal-overlay" id="modalOverlay">
+        <section class="modal">
+            <header class="modal-header">
+                <h3 class="modal-title">Create Budget</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </header>
+            <section class="modal-body">
+                <form id="addBudgetForm">
+                    <section class="form-group">
+                        <label for="budgetName">Budget Name</label>
+                        <input type="text" id="budgetName" placeholder="e.g., Monthly Groceries" required>
+                    </section>
+                    <section class="form-group">
+                        <label for="budgetAmount">Amount</label>
+                        <input type="number" id="budgetAmount" placeholder="500.00" step="0.01" required>
+                    </section>
+                    <section class="form-group">
+                        <label for="budgetCategory">Category</label>
+                        <select id="budgetCategory">
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Health">Health</option>
+                            <option value="Education">Education</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </section>
+                </form>
+            </section>
+            <footer class="modal-footer">
+                <button class="btn btn-outline" id="cancelModal">Cancel</button>
+                <button class="btn btn-primary" id="saveBudget">Create Budget</button>
+            </footer>
+        </section>
+    </section>
+
+
+    <script src="/js/api.js"></script>
+    <script src="/js/budgets.js"></script>
+
+</body>
+
+</html>

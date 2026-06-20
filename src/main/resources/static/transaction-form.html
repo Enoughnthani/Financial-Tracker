@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:if="${transaction != null and transaction.id != null}">Edit Transaction</title>
+    <title th:unless="${transaction != null and transaction.id != null}">Add Transaction</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        
+        <header th:replace="fragments/navbar :: navbar"></header>
+        
+        <nav th:replace="fragments/sidebar :: sidebar"></nav>
+        
+        <main class="main-content">
+            
+            <section class="page-content">
+                
+                <header class="page-header">
+                    <h1 th:if="${transaction != null and transaction.id != null}">Edit Transaction</h1>
+                    <h1 th:unless="${transaction != null and transaction.id != null}">Add New Transaction</h1>
+                    <p>Record your income or expense.</p>
+                </header>
+                
+                <article class="card" style="max-width:700px;">
+                    <form class="card-body" 
+                          th:action="@{/transactions/save}" 
+                          th:object="${transaction}" 
+                          method="post">
+                        
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" 
+                                   th:field="*{description}" 
+                                   placeholder="e.g., Grocery Shopping" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" 
+                                   th:field="*{amount}" 
+                                   step="0.01" 
+                                   placeholder="0.00" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transactionType">Transaction Type</label>
+                            <select id="transactionType" th:field="*{transactionType}" required>
+                                <option value="">Select type...</option>
+                                <option value="INCOME">💰 Income</option>
+                                <option value="EXPENSE">💸 Expense</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accountId">Account</label>
+                            <select id="accountId" th:field="*{account.id}" required>
+                                <option value="">Select account...</option>
+                                <option th:each="account : ${accounts}" 
+                                        th:value="${account.id}" 
+                                        th:text="${account.accountName + ' ($' + account.balance + ')'}">Savings</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="categoryId">Category</label>
+                            <select id="categoryId" th:field="*{category.id}">
+                                <option value="">Select category...</option>
+                                <option th:each="category : ${categories}" 
+                                        th:value="${category.id}" 
+                                        th:text="${category.name}">Food</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transactionDate">Transaction Date</label>
+                            <input type="date" id="transactionDate" 
+                                   th:field="*{transactionDate}" 
+                                   required />
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <span th:if="${transaction != null and transaction.id != null}">💾 Update</span>
+                                <span th:unless="${transaction != null and transaction.id != null}">➕ Add Transaction</span>
+                            </button>
+                            <a href="/transactions" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                    </form>
+                </article>
+                
+            </section>
+            
+            <footer th:replace="fragments/footer :: footer"></footer>
+            
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    
+</body>
+
+</html>

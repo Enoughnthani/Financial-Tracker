@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Financial Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- ============================================ -->
+    <!-- SIDEBAR -->
+    <!-- ============================================ -->
+    <aside class="sidebar" id="sidebar">
+        <header class="sidebar-brand">
+            <i class="fas fa-chart-line"></i>
+            <span>Financial <br>Tracker</span>
+        </header>
+
+        <section class="sidebar-user">
+            <figure class="sidebar-avatar" id="avatar">G</figure>
+            <div>
+                <p class="sidebar-username" id="sidebarUserName">Guest</p>
+                <small class="sidebar-useremail" id="sidebarUserEmail">guest@example.com</small>
+            </div>
+        </section>
+
+        <nav class="sidebar-nav">
+            <a href="/dashboard.html" class="active">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/accounts.html">
+                <i class="fas fa-university"></i>
+                <span>Accounts</span>
+                <span class="badge" id="accountsBadge">0</span>
+            </a>
+            <a href="/transactions.html">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+                <span class="badge" id="transactionsBadge">0</span>
+            </a>
+            <a href="/budgets.html">
+                <i class="fas fa-wallet"></i>
+                <span>Budgets</span>
+            </a>
+            <a href="/goals.html">
+                <i class="fas fa-bullseye"></i>
+                <span>Goals</span>
+                <span class="badge" id="goalsBadge">0</span>
+            </a>
+            <a href="/reports.html">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </a>
+            <a href="/profile.html">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <footer class="sidebar-footer">
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sign Out</span>
+            </a>
+        </footer>
+    </aside>
+
+    <!-- ============================================ -->
+    <!-- OVERLAY FOR MOBILE -->
+    <!-- ============================================ -->
+    <section class="sidebar-overlay" id="sidebarOverlay"></section>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================================ -->
+    <main class="main">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <section class="topbar-left">
+                <button class="menu-btn" id="menuToggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="topbar-title">Dashboard</h1>
+            </section>
+            <section class="topbar-right">
+                <span class="topbar-user" id="userName">Guest</span>
+                <a href="/logout" class="logout-btn" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </section>
+        </header>
+
+        <!-- Content -->
+        <section class="content">
+
+            <!-- Welcome -->
+            <header class="welcome-section">
+                <section>
+                    <h2 class="welcome-title" id="welcomeMessage">Welcome back!</h2>
+                    <p class="welcome-subtitle">Here's your financial overview for today.</p>
+                </section>
+                <a href="/transactions.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Transaction
+                </a>
+            </header>
+
+            <!-- Stats -->
+            <section class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon">💰</span>
+                    <strong class="stat-number primary" id="totalBalance">$0.00</strong>
+                    <span class="stat-label">Total Balance</span>
+                    <span class="stat-change up">+2.4%</span>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon">📈</span>
+                    <strong class="stat-number success" id="totalIncome">$0.00</strong>
+                    <span class="stat-label">Income</span>
+                    <span class="stat-change up">+12%</span>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon">📉</span>
+                    <strong class="stat-number danger" id="totalExpenses">$0.00</strong>
+                    <span class="stat-label">Expenses</span>
+                    <span class="stat-change down">+3%</span>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon">🎯</span>
+                    <strong class="stat-number primary" id="activeGoals">0</strong>
+                    <span class="stat-label">Active Goals</span>
+                    <span class="stat-change">—</span>
+                </article>
+            </section>
+
+            <!-- Transactions & Goals Grid -->
+            <section class="two-col-grid">
+
+                <!-- Recent Transactions -->
+                <article class="card">
+                    <header class="card-header">
+                        <span><i class="fas fa-list"></i> Recent Transactions</span>
+                        <a href="/transactions.html" class="card-link">View All →</a>
+                    </header>
+                    <section class="card-body">
+                        <figure class="table-responsive">
+                            <table class="table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Type</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentTransactionsBody">
+                                    <tr>
+                                        <td colspan="4" class="empty-state">
+                                            <span class="empty-icon">📭</span>
+                                            <p>No transactions yet</p>
+                                            <a href="/transactions.html" class="btn btn-sm btn-primary">Add One</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </figure>
+                    </section>
+                </article>
+
+                <!-- Goals -->
+                <article class="card">
+                    <header class="card-header">
+                        <span><i class="fas fa-bullseye"></i> Goal Progress</span>
+                        <a href="/goals.html" class="card-link">View All →</a>
+                    </header>
+                    <section class="card-body" id="goalsContainer">
+                        <section class="empty-state">
+                            <span class="empty-icon">🎯</span>
+                            <p>No goals set yet</p>
+                            <a href="/goals.html" class="btn btn-sm btn-primary">Create Goal</a>
+                        </section>
+                    </section>
+                </article>
+
+            </section>
+
+        </section>
+
+
+        <footer class="footer">
+            <p>&copy; 2026 Financial Tracker</p>
+        </footer>
+
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

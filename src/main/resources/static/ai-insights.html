@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Insights</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <th:block th:replace="layout :: body">
+        <th:block th:fragment="pageContent">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-0"><i class="fas fa-lightbulb"></i> AI Insights</h1>
+                    <p class="text-muted">Smart recommendations for your finances</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card-custom h-100" style="border-left:4px solid #0d6efd;">
+                        <div class="card-body">
+                            <div class="icon mb-2" style="font-size:2rem;">💡</div>
+                            <h6>Smart Savings Tip</h6>
+                            <p class="text-muted small">Track your spending to identify areas where you can save money
+                                each month.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom h-100" style="border-left:4px solid #10b981;">
+                        <div class="card-body">
+                            <div class="icon mb-2" style="font-size:2rem;">📈</div>
+                            <h6>Savings Opportunity</h6>
+                            <p class="text-muted small">Set a savings goal and watch your money grow with consistent
+                                contributions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom h-100" style="border-left:4px solid #f59e0b;">
+                        <div class="card-body">
+                            <div class="icon mb-2" style="font-size:2rem;">⚠️</div>
+                            <h6>Budget Alert</h6>
+                            <p class="text-muted small">Create budgets to stay on track with your spending and avoid
+                                overspending.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More insights -->
+            <div class="card-custom mt-4">
+                <div class="card-header">
+                    <i class="fas fa-list"></i> All Insights
+                </div>
+                <div class="card-body">
+                    <div class="empty-state">
+                        <div class="icon">🤖</div>
+                        <p>AI insights will appear as you add more transactions.</p>
+                    </div>
+                </div>
+            </div>
+
+        </th:block>
+    </th:block>
+</body>
+
+</html>

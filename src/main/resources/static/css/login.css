@@ -1,0 +1,302 @@
+/* ============================================
+   LOGIN PAGE - FINANCIAL TRACKER
+   ============================================ */
+
+/* ----- CSS VARIABLES ----- */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --white: #ffffff;
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --radius: 1rem;
+    --radius-sm: 0.5rem;
+    --radius-full: 9999px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- RESET ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gray-50);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ----- BACK BUTTON ----- */
+.back-btn {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-600);
+    text-decoration: none;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-full);
+    transition: var(--transition);
+    z-index: 100;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.back-btn:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-300);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.back-btn i {
+    font-size: 0.8125rem;
+}
+
+/* ----- LOGIN CARD ----- */
+.login-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+.login-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 2.5rem 2rem;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-200);
+}
+
+/* ----- LOGO ----- */
+.login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.375rem;
+}
+
+.login-logo i {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.login-subtitle {
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 0.9375rem;
+    margin-bottom: 1.75rem;
+}
+
+/* ----- ERROR MESSAGE ----- */
+.error-message {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #fef2f2;
+    color: #991b1b;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #fecaca;
+}
+
+.error-message.show {
+    display: flex;
+}
+
+.error-message i {
+    font-size: 1rem;
+}
+
+/* ----- SOCIAL BUTTONS ----- */
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--gray-700);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.social-btn i {
+    font-size: 1.125rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Google */
+.social-btn.google i { color: #ea4335; }
+.social-btn.google:hover {
+    border-color: #ea4335;
+    background: #fef2f2;
+}
+
+/* Microsoft */
+.social-btn.microsoft i { color: #00a4ef; }
+.social-btn.microsoft:hover {
+    border-color: #00a4ef;
+    background: #f0f9ff;
+}
+
+/* GitHub */
+.social-btn.github i { color: #181717; }
+.social-btn.github:hover {
+    border-color: #181717;
+    background: #f9fafb;
+}
+
+/* ----- DIVIDER ----- */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.25rem 0;
+    color: var(--gray-400);
+    font-size: 0.8125rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+}
+
+.divider span {
+    padding: 0 1rem;
+}
+
+/* ----- GUEST LINK ----- */
+.guest-link {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.guest-link a {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.guest-link a:hover {
+    color: var(--primary);
+}
+
+/* ----- TERMS ----- */
+.terms-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+}
+
+.terms-text a {
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.terms-text a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+
+@media (max-width: 640px) {
+    body {
+        padding: 1rem;
+    }
+
+    .login-card {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .back-btn {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8125rem;
+    }
+
+    .back-btn span {
+        display: none;
+    }
+
+    .back-btn::after {
+        content: 'Home';
+    }
+
+    .login-logo {
+        font-size: 1.125rem;
+    }
+
+    .social-btn {
+        font-size: 0.875rem;
+        padding: 0.625rem 0.875rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-card {
+        padding: 1.5rem 1rem 1.25rem;
+    }
+
+    .social-btn {
+        font-size: 0.8125rem;
+    }
+}

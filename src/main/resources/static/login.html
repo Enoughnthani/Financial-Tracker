@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Financial Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Financial Tracker</span>
+            </div>
+            <p class="login-subtitle">Sign in to manage your finances</p>
+
+            <div id="errorMessage" class="error-message">
+                <i class="fas fa-exclamation-circle"></i> Login failed. Please try again.
+            </div>
+
+            <div class="social-buttons">
+                <a href="/oauth2/authorization/google" class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </a>
+                <a href="/oauth2/authorization/microsoft" class="social-btn microsoft">
+                    <i class="fab fa-microsoft"></i>
+                    Continue with Microsoft
+                </a>
+                <a href="/oauth2/authorization/github" class="social-btn github">
+                    <i class="fab fa-github"></i>
+                    Continue with GitHub
+                </a>
+            </div>
+            
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+
+            <div class="guest-link">
+                <a href="/dashboard.html">Continue as Guest</a>
+            </div>
+
+            <p class="terms-text">
+                By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error')) {
+            document.getElementById('errorMessage').classList.add('show');
+        }
+    </script>
+
+</body>
+</html>
