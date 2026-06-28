@@ -17,9 +17,33 @@ public class BudgetService {
     private final BudgetRepository budgetRepository;
 
 
-    public Budget save(Budget budget) {
-        return budgetRepository.save(budget);
+    public BudgetResponse save(BudgetRequest request) {
+
+    BudgetCategory category = budgetCategoryRepository.findById(request.getCategoryId())
+            .orElseThrow(() -> new RuntimeException("Invalid budget category id"));
+
+    Budget budget;
+
+    if (request.getId() != null) {
+
+        budget = budgetRepository.findById(request.getId())
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+    } else {
+
+        budget = new Budget();
+        category.getBudget().add(budget);
+
     }
+
+    budget.setName(request.getName());
+    budget.setAmount(request.getAmount());
+    budget.setCategory(category);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
 
 
     public List<Budget> findAll() {
@@ -36,8 +60,34 @@ public class BudgetService {
     public void delete(Long id) {
         budgetRepository.deleteById(id);
     }
+    public BudgetResponse increaseBudget(Long id, Double amount) {
 
+    Budget budget = budgetRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Budget not found"));
 
+    budget.setAmount(budget.getAmount() + amount);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
+    public BudgetResponse decreaseBudget(Long id, Double amount) {
+
+    Budget budget = budgetRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+    double newAmount = budget.getAmount() - amount;
+
+    if(newAmount < 0){
+        newAmount = 0;
+    }
+
+    budget.setAmount(newAmount);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
     public @Nullable Object findAllPeriods() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAllPeriods'");
