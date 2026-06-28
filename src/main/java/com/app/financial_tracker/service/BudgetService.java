@@ -17,9 +17,33 @@ public class BudgetService {
     private final BudgetRepository budgetRepository;
 
 
-    public Budget save(Budget budget) {
-        return budgetRepository.save(budget);
+    public BudgetResponse save(BudgetRequest request) {
+
+    BudgetCategory category = budgetCategoryRepository.findById(request.getCategoryId())
+            .orElseThrow(() -> new RuntimeException("Invalid budget category id"));
+
+    Budget budget;
+
+    if (request.getId() != null) {
+
+        budget = budgetRepository.findById(request.getId())
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+    } else {
+
+        budget = new Budget();
+        category.getBudget().add(budget);
+
     }
+
+    budget.setName(request.getName());
+    budget.setAmount(request.getAmount());
+    budget.setCategory(category);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
 
 
     public List<Budget> findAll() {
