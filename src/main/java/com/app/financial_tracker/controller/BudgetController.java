@@ -35,7 +35,24 @@ public class BudgetController {
         budget.setId(id);
         return ResponseEntity.ok(budgetService.save(budget));
     }
+    @PatchMapping("/{id}/increase")
+public ResponseEntity<BudgetResponse> increaseBudget(
+        @PathVariable Long id,
+        @RequestParam Double amount){
 
+    return ResponseEntity.ok(
+            budgetService.increaseBudget(id, amount)
+    );
+}
+    @PatchMapping("/{id}/decrease")
+public ResponseEntity<BudgetResponse> decreaseBudget(
+        @PathVariable Long id,
+        @RequestParam Double amount){
+
+    return ResponseEntity.ok(
+            budgetService.decreaseBudget(id, amount)
+    );
+}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBudget(@PathVariable Long id) {
         budgetService.delete(id);
