@@ -269,7 +269,49 @@
             showToast('Error creating budget', 'error');
         }
     }
+    async function increaseBudget(id){
 
+    const amount = prompt("How much would you like to add?");
+
+    if(amount == null) return;
+
+    await fetch(`/api/budgets/${id}/increase?amount=${amount}`,{
+        method:"PATCH"
+    });
+
+    loadBudgets();
+    document.querySelectorAll(".increase-btn").forEach(button=>{
+
+    button.addEventListener("click",function(){
+
+        increaseBudget(this.dataset.id);
+
+    });
+
+});
+}
+    async function decreaseBudget(id){
+
+    const amount = prompt("How much would you like to subtract?");
+
+    if(amount == null) return;
+
+    await fetch(`/api/budgets/${id}/decrease?amount=${amount}`,{
+        method:"PATCH"
+    });
+
+    loadBudgets();
+    document.querySelectorAll(".decrease-btn").forEach(button=>{
+
+    button.addEventListener("click",function(){
+
+        decreaseBudget(this.dataset.id);
+
+    });
+
+});
+
+}
     // ============================================
     // TOAST
     // ============================================
