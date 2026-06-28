@@ -1,8 +1,9 @@
 package com.app.financial_tracker.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import com.app.financial_tracker.entity.Budget;
@@ -16,81 +17,46 @@ public class BudgetService {
 
     private final BudgetRepository budgetRepository;
 
-
-    public BudgetResponse save(BudgetRequest request) {
-
-    BudgetCategory category = budgetCategoryRepository.findById(request.getCategoryId())
-            .orElseThrow(() -> new RuntimeException("Invalid budget category id"));
-
-    Budget budget;
-
-    if (request.getId() != null) {
-
-        budget = budgetRepository.findById(request.getId())
-                .orElseThrow(() -> new RuntimeException("Budget not found"));
-
-    } else {
-
-        budget = new Budget();
-        category.getBudget().add(budget);
-
+    public Budget save(Budget budget) {
+        return budgetRepository.save(budget);
     }
-
-    budget.setName(request.getName());
-    budget.setAmount(request.getAmount());
-    budget.setCategory(category);
-
-    budgetRepository.save(budget);
-
-    return MapBudget(budget);
-}
-
 
     public List<Budget> findAll() {
         return budgetRepository.findAll();
     }
-
 
     public Budget findById(Long id) {
         return budgetRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Budget not found"));
     }
 
-
     public void delete(Long id) {
         budgetRepository.deleteById(id);
     }
-    public BudgetResponse increaseBudget(Long id, Double amount) {
 
-    Budget budget = budgetRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Budget not found"));
+    public Budget increaseBudget(Long id, Double amount) {
+        Budget budget = budgetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
 
-    budget.setAmount(budget.getAmount() + amount);
+        BigDecimal add = BigDecimal.valueOf(amount != null ? amount : 0.0);
+        BigDecimal current = budget.getAmount() != null ? budget.getAmount() : BigDecimal.ZERO;
+        budget.setAmount(current.add(add));
 
-    budgetRepository.save(budget);
-
-    return MapBudget(budget);
-}
-    public BudgetResponse decreaseBudget(Long id, Double amount) {
-
-    Budget budget = budgetRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Budget not found"));
-
-    double newAmount = budget.getAmount() - amount;
-
-    if(newAmount < 0){
-        newAmount = 0;
+        return budgetRepository.save(budget);
     }
 
-    budget.setAmount(newAmount);
+    public Budget decreaseBudget(Long id, Double amount) {
+        Budget budget = budgetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
 
-    budgetRepository.save(budget);
+        BigDecimal sub = BigDecimal.valueOf(amount != null ? amount : 0.0);
+        BigDecimal current = budget.getAmount() != null ? budget.getAmount() : BigDecimal.ZERO;
+        BigDecimal newAmount = current.subtract(sub);
+        if (newAmount.compareTo(BigDecimal.ZERO) < 0) {
+            newAmount = BigDecimal.ZERO;
+        }
+        budget.setAmount(newAmount);
 
-    return MapBudget(budget);
-}
-    public @Nullable Object findAllPeriods() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllPeriods'");
+        return budgetRepository.save(budget);
     }
-
 }
