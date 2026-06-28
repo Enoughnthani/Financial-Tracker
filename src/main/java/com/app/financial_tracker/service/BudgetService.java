@@ -60,8 +60,34 @@ public class BudgetService {
     public void delete(Long id) {
         budgetRepository.deleteById(id);
     }
+    public BudgetResponse increaseBudget(Long id, Double amount) {
 
+    Budget budget = budgetRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Budget not found"));
 
+    budget.setAmount(budget.getAmount() + amount);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
+    public BudgetResponse decreaseBudget(Long id, Double amount) {
+
+    Budget budget = budgetRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+    double newAmount = budget.getAmount() - amount;
+
+    if(newAmount < 0){
+        newAmount = 0;
+    }
+
+    budget.setAmount(newAmount);
+
+    budgetRepository.save(budget);
+
+    return MapBudget(budget);
+}
     public @Nullable Object findAllPeriods() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAllPeriods'");
